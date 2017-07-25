@@ -39,12 +39,10 @@
                         </div>
                     </div>
                 </form>
-            </div>
-            <div class="panel-body">
-                
-            </div>
+            </div>            
         </div>
-
+    </div>
+    <div class="col-sm-12">    
         <!-- Current Tasks -->
         @if (count($produtos) > 0)
         <div class="panel panel-default">
@@ -53,51 +51,53 @@
             </div>
 
             <div class="panel-body">
-                <table class="table table-striped produto-table">
-                    <thead>
-                    <th>Produto</th>
-                    <th>Descricao</th>
-                    </thead>
-                    <tbody>
-                        @foreach ($products as $product)
-                        <tr>
-                            <td class="table-text" style="width: 150px"><div>{{ $product->name }}</div></td>
-                            <td class="table-text" style="width: 300px"><div>{{ $product->description }}</div></td>
-                            <td>
-                                <form action="/admin/produto/uploadimagem/{{ $produto->id }}" method="GET">
-                                    {{ csrf_field() }}
-                                    {{ method_field('EDIT') }}
+                <div class="table-responsive">  
+                    <table class="table table-striped produto-table table-hover">
+                        <thead>
+                        <th>Produto</th>
+                        <th>Descricao</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($produtos as $produto)
+                            <tr>
+                                <td class="table-text" style="width: 300px"><div>{{ $produto->nome }}</div></td>
+                                <td class="table-text" style="width: 600px"><div>{{ $produto->descricao }}</div></td>
+                                <td>
+                                    <form action="/admin/produto/uploadimagem/{{ $produto->id }}" method="GET">
+                                        {{ csrf_field() }}
+                                        {{ method_field('EDIT') }}
 
-                                    <button type="submit" id="edit-produto-{{ $produto->id }}" class="btn btn-primary">
-                                        <i class="fa fa-btn fa-file-picture-o"></i>Imagem
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/admin/produto/{{ $produto->id }}" method="GET">
-                                    {{ csrf_field() }}
-                                    {{ method_field('EDIT') }}
+                                        <button type="submit" id="edit-produto-{{ $produto->id }}" class="btn btn-primary">
+                                            <i class="fa fa-btn fa-picture-o"></i> Imagem
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="/admin/produto/{{ $produto->id }}" method="GET">
+                                        {{ csrf_field() }}
+                                        {{ method_field('EDIT') }}
 
-                                    <button type="submit" id="edit-produto-{{ $produto->id }}" class="btn btn-warning">
-                                        <i class="fa fa-btn fa-edit"></i>Alterar
-                                    </button>
-                                </form>
-                            </td>
-                            <!-- Task Delete Button -->
-                            <td>
-                                <form action="/admin/produto/{{ $produto->id }}" method="POST">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
+                                        <button type="submit" id="edit-produto-{{ $produto->id }}" class="btn btn-warning">
+                                            <i class="fa fa-btn fa-edit"></i> Alterar
+                                        </button>
+                                    </form>
+                                </td>
+                                <!-- Task Delete Button -->
+                                <td>
+                                    <form action="/admin/produto/{{ $produto->id }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
 
-                                    <button type="submit" id="delete-produto-{{ $produto->id }}" class="btn btn-danger">
-                                        <i class="fa fa-btn fa-trash"></i>Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                        <button type="submit" id="delete-produto-{{ $produto->id }}" class="btn btn-danger">
+                                            <i class="fa fa-btn fa-trash-o"></i> Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         @endif

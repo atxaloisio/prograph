@@ -39,6 +39,23 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: none;
 }
 
+.det_prod{
+    overflow: hidden;
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #FFFFFF;
+    border: 0px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
 .navbar-toggle {
     background-color: #000;
 }
@@ -213,6 +230,7 @@ a#scrollUp i{
     color:#fe980f;
     background:#fff;
 }
+
 
 
 .header-bottom {
@@ -901,7 +919,7 @@ h2.title {
     transition: height 500ms ease 0s;
     width: 100%;
     display: block;
-    opacity:;
+    opacity:0.5;
 }
 
 .single-products:hover .product-overlay {

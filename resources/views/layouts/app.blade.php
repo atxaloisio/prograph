@@ -8,11 +8,23 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Modulo Administrativo') }}</title>
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">        
+        <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/prettyPhoto.css')}}" rel="stylesheet">
+        <link href="{{asset('css/price-range.css')}}" rel="stylesheet">
+        <link href="{{asset('css/animate.css')}}" rel="stylesheet">
+        <link href="{{asset('css/main.css')}}" rel="stylesheet">
+        <link href="{{asset('css/responsive.css')}}" rel="stylesheet">
+        <link href="{{asset('css/app.css')}}" rel="stylesheet">
+        <link href="{{asset('css/local.css')}}" rel="stylesheet">
+        <!--[if lt IE 9]>
+        <script src="{{asset('js/html5shiv.js')}}"></script>
+        <script src="{{asset('js/respond.min.js')}}"></script>
+        <![endif]-->          
         <!-- Scripts -->
         <script>
             window.Laravel = {!! json_encode([
@@ -86,7 +98,7 @@
                                     <li>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
+                                                   document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
 
@@ -106,6 +118,14 @@
         </div>
 
         <!-- Scripts -->
+        <script src="{{asset('js/jquery.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
+        <script src="{{asset('js/price-range.js')}}"></script>
+        <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
+        <script src="{{asset('js/jquery.mlens-1.6.min.js')}}"></script>
+        <script src="{{asset('js/main.js')}}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/local.js') }}"></script>
     </body>
 </html>

@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Product;
-use App\Repositories\ProdutoRepository;
+use App\Produto;
+use App\ProdutoImagem;
 use Illuminate\Http\JsonResponse;
 
 class ProdutoController extends Controller {
@@ -27,10 +27,10 @@ class ProdutoController extends Controller {
      * @param  ProdutoRepository  $produtos
      * @return void
      */
-    public function __construct(ProdutoRepository $produtos) {
+    public function __construct() {
         $this->middleware('auth');
 
-        $this->produtos = $produtos;
+        $this->produtos = Produto::all();
     }
 
     /**
@@ -40,14 +40,16 @@ class ProdutoController extends Controller {
      * @return Response
      */
     public function index(Request $request) {
-        return view('produtos.index', [
-            'produtos' => $this->produtos->getTodos(),
+        return view('admin.produtos.index', [
+            'produtos' => $this->produtos,
         ]);
     }
 
     public function edit(Request $request, Produto $produto) {
-        return view('produtos.edit', [
-            'produto' => $this->produtos->getbyId($produto),
+        $prd = Produto::find($produto->id);
+        return view('admin.produtos.edit', [
+            'produto' => $prd,
+            'produtos' => $this->produtos,
         ]);
     }
 
@@ -66,8 +68,8 @@ class ProdutoController extends Controller {
         //Session::flash('message', 'Successfully updated produto!');
 
         $request->session()->flash('status', 'produto was successful!');
-
-        return view('produtos.index', ['produtos' => $this->produtos->getTodos(),]);
+        $this->produtos = Produto::all();
+        return view('admin.produtos.index', ['produtos' => $this->produtos,]);
     }
 
     /**
@@ -89,7 +91,7 @@ class ProdutoController extends Controller {
 
         $produto->save();
 
-        return redirect('/produtos');
+        return redirect('/admin/produtos');
     }
 
     /**
@@ -101,22 +103,21 @@ class ProdutoController extends Controller {
      */
     public function destroy(Request $request, Produto $produto) {
         //$this->authorize('destroy', $produto);
-
-        $produto->delete();
-
-        return redirect('/produtos');
+        Produto::destroy($produto->id);
+        
+        return redirect('/admin/produtos');
     }
 
     public function upload() {
-        return view('produtos.upload');
+        return view('admin.produtos.upload');
     }
 
     public function uploadimagem(Produto $produto) {
         $prd = Produto::find($produto->id);
 
-        $lista_produto = Produto_Imagem::where('produto_id', $produto->id)->get();
+        $lista_produto = ProdutoImagem::where('produto_id', $produto->id)->get();
 
-        return view('produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
+        return view('admin.produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
     }
 
     public function getproduto($produto, Request $request) {
@@ -145,7 +146,7 @@ class ProdutoController extends Controller {
                 Storage::disk('root')->put($filename . '.' . $extension, File::get($file));
             }
 
-            $produto_Imagem = new Produto_Imagem();
+            $produto_Imagem = new ProdutoImagem();
             $produto_Imagem->produto_id = $request->produtoid;
             $produto_Imagem->caminho = $filename . '.' . $extension;
             $produto_Imagem->descricao = $request->descricao;
@@ -157,7 +158,7 @@ class ProdutoController extends Controller {
 
         $lista_produto = Produto_Imagem::where('produto_id', $request->produtoid)->get();
 
-        return view('produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
+        return view('admin.produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
     }
 
     public function destroyprodutoimagem(Request $request, Produto_Imagem $produto) {
@@ -178,7 +179,7 @@ class ProdutoController extends Controller {
 
         $lista_produto = Produto_Imagem::where('produto_id', $ProdutoId)->get();
 
-        return view('produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
+        return view('admin.produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
         //return 'teste de retorno';
     }
 

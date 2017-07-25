@@ -1,0 +1,127 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 02/06/2016, 01:21:18
+    Author     : Aloisio
+*/
+body {
+    font-family: 'Lato';
+    background-color: #66ffcc;    
+}
+
+.fa-btn {
+    margin-right: 6px;
+}
+
+.navbar-default{
+    background-color: linen;
+}
+.centralizado {
+    margin: 0 auto!important;
+
+    float: none!important;
+}
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+.wb_element{
+    position: relative !important; 
+    min-height: 44px; 
+    min-width: 44px; 
+    left: 0px; 
+    top: 0px;
+    padding: 12px; 
+    margin: 0px; 
+    display: block; 
+    overflow: visible;
+    float: left;
+}
+.wb-stl-heading2{ 
+    font: normal bold 30px Tahoma,Geneva,sans-serif; 
+    color: #000000; 
+    text-decoration: none; 
+    text-align: left; 
+    margin: 0px 0px 0px 0px; 
+    padding: 0px 0px 0px 0px; 
+    text-transform: uppercase; 
+}
+.wb_button{
+    display: block; 
+    padding: 0px; 
+    margin: 0px; 
+    text-align: center; 
+    text-decoration: none;
+    cursor: pointer;
+}
+.wb_button,
+
+.wb_button:hover,
+
+.wb_button:active,
+
+.wb_button:focus,
+
+.wb_button:visited	{ outline: none !important; }
+
+.wb_button span	{ display: block; padding: 0px; margin: 0px; }
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {                
+    width: 70%;
+    margin: auto;
+}
+.fundo_padrao{
+    background-color: linen;
+}
+.descricao{
+    height: 200px;                
+}
