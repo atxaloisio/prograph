@@ -50,6 +50,11 @@ Route::get('/admin/produto/produtoimagem/{produto}', 'ProdutoController@getprodu
 Route::delete('/admin/produto/produtoimagem/{produto}', 'ProdutoController@destroyprodutoimagem');
 Route::post('/admin/produto/upload', 'ProdutoController@saveUpload');
 
+Route::get('/admin/categorias', 'CategoriaController@index');
+Route::post('/admin/categoria', 'CategoriaController@store');
+Route::get('/admin/categoria/{categoria}', 'CategoriaController@edit');
+Route::post('/admin/categoria/{categoria}', 'CategoriaController@update');
+Route::delete('/admin/categoria/{categoria}', 'CategoriaController@destroy');
 
 
 

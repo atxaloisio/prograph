@@ -10,7 +10,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Produto;
 use App\ProdutoImagem;
+use App\Categoria;
+use App\Marca;
 use Illuminate\Http\JsonResponse;
+use App\Utils;
 
 class ProdutoController extends Controller {
 
@@ -20,6 +23,8 @@ class ProdutoController extends Controller {
      * @var TaskRepository
      */
     protected $produtos;
+    protected $categorias;
+    protected $marcas;
 
     /**
      * Create a new controller instance.
@@ -31,6 +36,8 @@ class ProdutoController extends Controller {
         $this->middleware('auth');
 
         $this->produtos = Produto::all();
+        $this->categorias = Categoria::all();
+        $this->marcas = Marca::all();
     }
 
     /**
@@ -39,37 +46,56 @@ class ProdutoController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function index(Request $request) {
+    public function index() {
         return view('admin.produtos.index', [
             'produtos' => $this->produtos,
+            'categorias' => $this->categorias,
+            'marcas' => $this->marcas,
         ]);
     }
 
-    public function edit(Request $request, Produto $produto) {
+    public function edit(Produto $produto) {
         $prd = Produto::find($produto->id);
+        //realiza o parse para o formato de moeda.
+        $prd->preco = Utils::dbToMoeda($prd->preco);
         return view('admin.produtos.edit', [
             'produto' => $prd,
             'produtos' => $this->produtos,
+            'categorias' => $this->categorias,
+            'marcas' => $this->marcas,
         ]);
     }
 
     public function update(Request $request, Produto $produto) {
         $this->validate($request, [
             'nome' => 'required|max:255',
-            'descricao' => 'required|max:255',
+            'descricao' => 'required|max:500',
         ]);
+        
+        $categ = Categoria::where('nome', '=', $request->categoria)->first();
+        $mrc = Marca::where('nome', '=', $request->marca)->first();
 
         $produto_update = Produto::find($produto->id);
         $produto_update->nome = $request->nome;
+        $produto_update->titulo = $request->nome;
+        $produto_update->preco = Utils::moedaToDB($request->preco);
         $produto_update->descricao = $request->descricao;
+        $produto_update->categoria_id = $categ->id;
+        $produto_update->marca_id = $mrc->id;
 
         $produto_update->save();
 
         //Session::flash('message', 'Successfully updated produto!');
 
-        $request->session()->flash('status', 'produto was successful!');
-        $this->produtos = Produto::all();
-        return view('admin.produtos.index', ['produtos' => $this->produtos,]);
+        $request->session()->flash('status', 'Produto alterado com sucesso!');
+        
+        return redirect('/admin/produtos');
+//        $this->produtos = Produto::all();
+//        return view('admin.produtos.index', [
+//            'produtos' => $this->produtos,
+//            'categorias' => $this->categorias,
+//            'marcas' => $this->marcas,
+//        ]);
     }
 
     /**
@@ -81,15 +107,24 @@ class ProdutoController extends Controller {
     public function store(Request $request) {
         $this->validate($request, [
             'nome' => 'required|max:255',
-            'descricao' => 'required|max:255',
+            'descricao' => 'required|max:500',
         ]);
-
+        
+        $categ = Categoria::where('nome', '=', $request->categoria)->first();
+        $mrc = Marca::where('nome', '=', $request->marca)->first();
+                                
         $produto = new Produto([
             'nome' => $request->nome,
+            'titulo' => $request->nome,
+            'preco' => Utils::moedaToDB($request->preco) ,
             'descricao' => $request->descricao,
+            'categoria_id' => $categ->id,
+            'marca_id' => $mrc->id,
         ]);
 
         $produto->save();
+        
+        $request->session()->flash('status', 'Produto cadastrado com sucesso!');
 
         return redirect('/admin/produtos');
     }
@@ -104,6 +139,7 @@ class ProdutoController extends Controller {
     public function destroy(Request $request, Produto $produto) {
         //$this->authorize('destroy', $produto);
         Produto::destroy($produto->id);
+        $request->session()->flash('status', 'produto excluído com sucesso!');
         
         return redirect('/admin/produtos');
     }

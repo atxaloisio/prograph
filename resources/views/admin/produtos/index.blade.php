@@ -18,23 +18,52 @@
 
                     <!-- Task Name -->
                     <div class="form-group">
-                        <label for="produto-name" class="col-sm-3 control-label">Produto</label>
+                        <label for="nome" class="col-sm-1 control-label">Produto</label>
                         <div class="col-sm-6">
-                            <input type="text" name="name" id="produto-nome" class="form-control" value="">
+                            <input type="text" name="nome" id="nome" class="form-control" value="" autofocus>
+                        </div>                                                        
+                        <label for="preco" class="col-sm-1 control-label">Preço</label>
+                        <div class="col-sm-2">
+                            <input type="text" name="preco" id="preco" class="form-control" value="" onkeypress="return isNumber(event)">
                         </div>                                                        
                     </div>
                     <div class="form-group">
-                        <label for="produto-name" class="col-sm-3 control-label">Descrição</label>
+                        <label for="descricao" class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;Descrição do Produto:</label>
+                        <textarea class="form-control" rows="5" id="descricao" name="descricao"></textarea>                     
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-6">
-                            <input type="text" name="description" id="produto-descricao" class="form-control" value="">
+                            <label for="categoria" class="col-sm-3 control-label">Categoria</label>                        
+                            <div class="col-sm-9">
+                                <select class="form-control" id="categoria" name="categoria">                                    
+                                    @if (count($categorias) > 0)
+                                        @foreach($categorias as $categoria)
+                                            <option>{{$categoria->nome}}</option>                                    
+                                        @endforeach
+                                    @endif                                   
+                                </select>
+                            </div> 
                         </div>
-                    </div>    
+                        <div class="col-sm-6">
+                            <label for="marca" class="col-sm-3 control-label">Marca</label>                        
+                            <div class="col-sm-9">
+                                <select class="form-control" id="marca" name="marca">
+                                    @if (count($marcas) > 0)
+                                        @foreach($marcas as $marca)
+                                            <option>{{$marca->nome}}</option>                                    
+                                        @endforeach
+                                    @endif   
+                                </select>
+                            </div> 
+                        </div>
+
+                    </div>
 
                     <!-- Add Task Button -->
                     <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-6">
+                        <div class="col-sm-offset-3 col-sm-6 text-center">
                             <button type="submit" class="btn btn-default">
-                                <i class="fa fa-btn fa-plus"></i>Adicionar Produto
+                                <i class="fa fa-btn fa-save"></i> Adicionar Produto
                             </button>
                         </div>
                     </div>
@@ -61,7 +90,7 @@
                             @foreach ($produtos as $produto)
                             <tr>
                                 <td class="table-text" style="width: 300px"><div>{{ $produto->nome }}</div></td>
-                                <td class="table-text" style="width: 600px"><div>{{ $produto->descricao }}</div></td>
+                                <td class="table-text" style="width: 600px"><div>{!!html_entity_decode($produto->descricao)!!} </div></td>
                                 <td>
                                     <form action="/admin/produto/uploadimagem/{{ $produto->id }}" method="GET">
                                         {{ csrf_field() }}

@@ -17,10 +17,10 @@
         <link href="{{asset('css/prettyPhoto.css')}}" rel="stylesheet">
         <link href="{{asset('css/price-range.css')}}" rel="stylesheet">
         <link href="{{asset('css/animate.css')}}" rel="stylesheet">
-        <link href="{{asset('css/main.css')}}" rel="stylesheet">
+<!--        <link href="{{asset('css/main.css')}}" rel="stylesheet">-->
         <link href="{{asset('css/responsive.css')}}" rel="stylesheet">
         <link href="{{asset('css/app.css')}}" rel="stylesheet">
-        <link href="{{asset('css/local.css')}}" rel="stylesheet">
+<!--        <link href="{{asset('css/local.css')}}" rel="stylesheet">-->
         <!--[if lt IE 9]>
         <script src="{{asset('js/html5shiv.js')}}"></script>
         <script src="{{asset('js/respond.min.js')}}"></script>
@@ -61,7 +61,10 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Cadastros">Cadastros<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="#" target="_self" title="Shop">Categorias</a>
+                                        <a href="/admin/categorias" target="_self" title="Shop">Categorias</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/marcas" target="_self" title="Shop">Marcas</a>
                                     </li>
                                     <li>
                                         <a href="/admin/produtos" target="_self" title="Shop">Produtos</a>
@@ -117,15 +120,40 @@
             @yield('content')
         </div>
 
-        <!-- Scripts -->
-        <script src="{{asset('js/jquery.js')}}"></script>
-        <script src="{{asset('js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
-        <script src="{{asset('js/price-range.js')}}"></script>
-        <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
-        <script src="{{asset('js/jquery.mlens-1.6.min.js')}}"></script>
-        <script src="{{asset('js/main.js')}}"></script>
+        <!-- Scripts -->        
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">        
+        <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/prettyPhoto.css')}}" rel="stylesheet">
+        <link href="{{asset('css/price-range.css')}}" rel="stylesheet">
+        <link href="{{asset('css/animate.css')}}" rel="stylesheet">       
+        <link href="{{asset('css/responsive.css')}}" rel="stylesheet">        
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/local.js') }}"></script>
+        <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+        <script src="{{ asset('js/tinymce/jquery.tinymce.min.js') }}"></script>
+        <script>tinymce.init({ 
+            selector:'textarea', 
+            branding: false,
+            menubar: false,            
+            language: 'pt_BR',
+            plugins: [
+    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+    'searchreplace wordcount visualblocks visualchars code fullscreen',
+    'insertdatetime media nonbreaking save table contextmenu directionality',
+    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
+  ],
+  toolbar1: 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link forecolor backcolor',  
+  image_advtab: true,
+  templates: [
+    { title: 'Test template 1', content: 'Test 1' },
+    { title: 'Test template 2', content: 'Test 2' }
+  ],
+  content_css: [
+    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+        });
+        </script>
     </body>
 </html>
+
