@@ -10,7 +10,7 @@
   | contains the "web" middleware group. Now create something great!
   |
  */
-
+Auth::routes();
 Route::get('/', 'Front@index');
 Route::get('/produtos', 'Front@produtos');
 Route::get('/produtos/detalhe/{id}', 'Front@produto_detalhe');
@@ -48,7 +48,7 @@ Route::get('/admin/produto/upload/{produto}', 'ProdutoController@getproduto');
 Route::get('/admin/produto/produtoimagem', 'ProdutoController@gettoken');
 Route::get('/admin/produto/produtoimagem/{produto}', 'ProdutoController@getprodutoimagem');
 Route::delete('/admin/produto/produtoimagem/{produto}', 'ProdutoController@destroyprodutoimagem');
-Route::post('/admin/produto/upload', 'ProdutoController@saveUpload');
+Route::post('/admin/uploadimagem', 'ProdutoController@saveupload');
 
 Route::get('/admin/categorias', 'CategoriaController@index');
 Route::post('/admin/categoria', 'CategoriaController@store');
@@ -56,14 +56,20 @@ Route::get('/admin/categoria/{categoria}', 'CategoriaController@edit');
 Route::post('/admin/categoria/{categoria}', 'CategoriaController@update');
 Route::delete('/admin/categoria/{categoria}', 'CategoriaController@destroy');
 
+Route::get('/admin/marcas', 'MarcaController@index');
+Route::post('/admin/marca', 'MarcaController@store');
+Route::get('/admin/marca/{marca}', 'MarcaController@edit');
+Route::post('/admin/marca/{marca}', 'MarcaController@update');
+Route::delete('/admin/marca/{marca}', 'MarcaController@destroy');
+
 
 
 
 Route::get('/api/v1/produtos/{id?}', ['middleware' => 'auth.basic', function($id = null) {
         if ($id == null) {
-            $produtos = App\Product::all(array('id', 'name', 'price'));
+            $produtos = App\Produto::all(array('id', 'nome', 'preco'));
         } else {
-            $produtos = App\Product::find($id, array('id', 'name', 'price'));
+            $produtos = App\Produto::find($id, array('id', 'nome', 'preco'));
         }
         return Response::json(array(
                     'error' => false,
@@ -141,7 +147,6 @@ Route::get('blade', function () {
     return view('page', array('name' => 'The Raven', 'day' => 'Friday', 'drinks' => $drinks));
 });
 
-Auth::routes();
 Route::get('/home', 'Front@index');
 
 //Route::get('/', function () {

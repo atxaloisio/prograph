@@ -180,8 +180,10 @@ class Front extends Controller {
         $client = new Client(['base_uri' => 'http://prograph.localhost/api/v1/produtos/']);
         $res = $client->request('GET', $id, ['auth' => ['atxaloisio@hotmail.com','mestreat']]);
         
-        $result= $res->getBody();
-        return $result;
+        $produtos = json_decode($res->getBody(),true);
+                
+        //$result= $res->getBody();
+        return $produtos;
     }
 
 }

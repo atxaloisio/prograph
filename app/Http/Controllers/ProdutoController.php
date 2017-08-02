@@ -171,7 +171,7 @@ class ProdutoController extends Controller {
         //($this->produtos->getbyNome($produto));
     }
 
-    public function saveUpload(Request $request) {
+    public function saveupload(Request $request) {
         $file = $request->campoimagem;
         
         if (!is_null($file)) {
@@ -184,36 +184,42 @@ class ProdutoController extends Controller {
 
             $produto_Imagem = new ProdutoImagem();
             $produto_Imagem->produto_id = $request->produtoid;
-            $produto_Imagem->caminho = $filename . '.' . $extension;
-            $produto_Imagem->descricao = $request->descricao;
+            $produto_Imagem->nome = $filename . '.' . $extension;
+            $produto_Imagem->descricao = $request->descricao_produto;
 
             $produto_Imagem->save();
         }
         
         $prd = Produto::find($request->produtoid);
+        
+        if ($request->chkdefault)
+        {
+            $prd->imagem_id = $produto_Imagem->id;
+            $prd->save();
+        }
 
-        $lista_produto = Produto_Imagem::where('produto_id', $request->produtoid)->get();
+        $lista_produto = ProdutoImagem::where('produto_id', $request->produtoid)->get();
 
         return view('admin.produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
     }
 
-    public function destroyprodutoimagem(Request $request, Produto_Imagem $produto) {
-        $this->authorize('destroyprodutoimagem', $produto);
+    public function destroyprodutoimagem(Request $request, $produto) {
+//        $this->authorize('destroyprodutoimagem', $produto);
 
-        $produto_Imagem = Produto_Imagem::find($produto->id);
+        $produto_Imagem = ProdutoImagem::find($produto);
 
         $prd = Produto::find($produto_Imagem->produto_id);
 
         $ProdutoId = $produto_Imagem->produto_id;
 
-        $exists = Storage::disk('root')->exists($produto_Imagem->caminho);
+        $exists = Storage::disk('root')->exists($produto_Imagem->nome);
         if ($exists) {
-            Storage::disk('root')->delete($produto_Imagem->caminho);
+            Storage::disk('root')->delete($produto_Imagem->nome);
         }
 
         $produto_Imagem->delete();
 
-        $lista_produto = Produto_Imagem::where('produto_id', $ProdutoId)->get();
+        $lista_produto = ProdutoImagem::where('produto_id', $ProdutoId)->get();
 
         return view('admin.produtos.upload', ['produto_imagem' => $lista_produto, 'produto' => $prd,]);
         //return 'teste de retorno';

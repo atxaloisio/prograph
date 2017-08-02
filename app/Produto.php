@@ -33,7 +33,8 @@ class Produto extends Eloquent
 	protected $casts = [
 		'preco' => 'decimal',
 		'categoria_id' => 'int',
-		'marca_id' => 'int'
+		'marca_id' => 'int',
+                'imagem_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -42,7 +43,8 @@ class Produto extends Eloquent
 		'descricao',
 		'preco',
 		'categoria_id',
-		'marca_id'
+		'marca_id',
+                'imagem_id'
 	];
 
 	public function produto_imagems()

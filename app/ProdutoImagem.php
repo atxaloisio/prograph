@@ -33,8 +33,8 @@ class ProdutoImagem extends Eloquent
 
 	protected $fillable = [
 		'produto_id',
-		'imagem_path',
-		'imagemzoom_path'
+		'nome',
+		'descricao'
 	];
 
 	public function produto()
