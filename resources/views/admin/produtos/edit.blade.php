@@ -94,7 +94,7 @@
                             @foreach ($produtos as $produto)
                             <tr>
                                 <td class="table-text" style="width: 300px"><div>{{ $produto->nome }}</div></td>
-                                <td class="table-text" style="width: 600px"><div>{{ $produto->descricao }}</div></td>
+                                <td class="table-text" style="width: 600px"><div>{!!html_entity_decode($produto->descricao)!!}</div></td>
                                 <td>
                                     <form action="/admin/produto/uploadimagem/{{ $produto->id }}" method="GET">
                                         {{ csrf_field() }}
